@@ -1,0 +1,171 @@
+//HTET AUNG WAI for NCC Genius exam (5) htetaungwai1994@gmail.com
+#include <iostream>
+using namespace std;
+#define NO 10
+#include<cstring>
+struct Employee{
+    int acc_no=0;
+    char u_name[10];
+    char password[10];
+    float balance;
+}EMP[NO];
+int main() {
+ FILE*fptr;
+    if((fptr = fopen("001test.txt","w+")) == NULL){
+        puts("File Cannot open");
+        exit(1);}
+    else {
+        for (int i = 0; i < NO; i++) {
+            cout<<"************************************\n";
+            cout<<"Please enter acc no:\n";
+            cin>>EMP[i].acc_no;
+            cout<<"Please enter  user name:\n";
+            cin>> EMP[i].u_name;
+            cout<<"Please enter  password no:\n";
+            cin>> EMP[i].password;
+            cout<<"Please enter  balance no:\n";
+            cin>>EMP[i].balance;
+            fprintf(fptr , "%d%20s%20s%20.2f\n",EMP[i].acc_no ,EMP[i].u_name ,EMP[i].password, EMP[i].balance);
+            //printf("************************************\n");
+        }
+    }
+    fclose(fptr);
+    int choice;
+    cout<<"If you want to find data press 1 or to update press 2\n or press 3 to exit\n";
+    cin>>choice;
+if(choice==3){
+    exit ;
+}
+if(choice==1) {
+    int a = 0;
+    int value=0;
+    char u_find[10];
+    cout<<"Please enter the username you want to find:\n";
+    cin>>u_find;
+
+    for ( a=0;a<NO;a++) {
+
+        value=strcmp(u_find,EMP[a].u_name);
+
+       if(value==0){
+           cout<<"We found username: "<<EMP[a].u_name<<endl;
+           cout<<"Acc no is: "<<EMP[a].acc_no <<endl;
+           cout<<"Password is: "<<EMP[a].password<<endl;
+           cout<<"Balance is: "<<EMP[a].balance<<endl ;
+
+
+
+       }else{
+           cout<<"We cannot find\n";
+
+       }
+    }
+
+}if(choice==2) {
+        int update;
+        cout<<"If you want to update acc press 1, username press 2, password press 3,balance press 4";
+        cin>>choice;
+        int new_accno, accno;
+        switch (choice) {
+            case 1:
+                cout<<"Please enter the acc no u want to change:\n";
+                cin>>accno;
+                cout<<"Please enter the new one:\n";
+                cin>>new_accno;
+                for (int b = 0; b < NO; b++) {
+                    if (accno == EMP[b].acc_no) {
+                        cout<<"***";
+                        EMP[b].acc_no = new_accno;
+                    }
+                    if ((fptr = fopen("001test.txt", "w+")) == NULL) {
+                        puts("File Cannot open");
+                        exit(1);
+                    } else {
+                        for (int c = 0; c < NO; c++) {
+                            fprintf(fptr, "%d%20s%20s%20.2f\n", EMP[c].acc_no, EMP[c].u_name, EMP[c].password,
+                                    EMP[c].balance);
+                        }
+                        fclose(fptr);
+                    }
+                }
+                break;
+            case 2:
+                char up_name_old[10];
+                char up_name_new[10];
+                int U_value;
+                cout<<"Please enter the old username :\n";
+                cin>>up_name_old;
+                cout<<"Please enter the new username :\n";
+                cin>>up_name_new;
+                for (int d = 0; d < NO; d++) {
+                    U_value = strcmp(up_name_old,EMP[d].u_name);
+                    if (U_value == 0) {
+                        strcpy(EMP[d].u_name,up_name_new);
+                    }
+                    if ((fptr = fopen("001test.txt", "w+")) == NULL) {
+                        puts("File Cannot open");
+                        exit(1);
+                    } else {
+                        for (int e = 0; e < NO; e++) {
+                            fprintf(fptr, "%d%20s%20s%20.2f\n", EMP[e].acc_no, EMP[e].u_name, EMP[e].password,
+                                    EMP[e].balance);
+                        }
+                        fclose(fptr);
+                    }
+                }
+                break;
+            case 3:
+                char up_pass_old[10];
+                char up_pass_new[10];
+                int P_value;
+                cout<<"Please enter the old password :\n";
+                cin>>up_pass_old;
+                cout<<"Please enter the new password :\n";
+                cin>>up_pass_new;
+                for (int d = 0; d < NO; d++) {
+                    U_value = strcmp(up_pass_old, EMP[d].password);
+                    if (U_value == 0) {
+                        strcpy(EMP[d].password, up_pass_new);
+                    }
+                    if ((fptr = fopen("001test.txt", "w+")) == NULL) {
+                        puts("File Cannot open");
+                        exit(1);
+                    } else {
+                        for (int e = 0; e < NO; e++) {
+                            fprintf(fptr, "%d%20s%20s%20.2f\n", EMP[e].acc_no, EMP[e].u_name, EMP[e].password,
+                                    EMP[e].balance);
+                        }
+                        fclose(fptr);
+                    }
+                }
+                break;
+            case 4:
+                char U_balanace[10];
+                float New_balance;
+                cout<<"Please enter the username:\n";
+                cin>>U_balanace;
+                cout<<"Please enter the new balance\n";
+                cin>>New_balance;
+                for (int d = 0; d < NO; d++) {
+                    U_value = strcmp(U_balanace, EMP[d].u_name);
+                    if (U_value == 0) {
+                        EMP[d].balance = New_balance;
+                    }
+                    if ((fptr = fopen("001test.txt", "w+")) == NULL) {
+                        puts("File Cannot open");
+                        exit(1);
+                    } else {
+                        for (int c = 0; c < NO; c++) {
+                            fprintf(fptr, "%d%20s%20s%20.2f\n", EMP[c].acc_no, EMP[c].u_name, EMP[c].password,
+                                    EMP[c].balance);
+                        }
+                        fclose(fptr);
+                    }
+                }
+                break;
+        }
+    }
+
+    fclose(fptr);
+    return 0;
+}
